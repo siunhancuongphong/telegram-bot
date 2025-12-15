@@ -1,3 +1,13 @@
+from flask import Flask, request
+import requests
+import os
+
+# KHỞI TẠO FLASK APP (BẮT BUỘC PHẢI Ở TRÊN)
+app = Flask(__name__)
+
+TOKEN = os.getenv("BOT_TOKEN")
+URL = f"https://api.telegram.org/bot{TOKEN}"
+
 @app.route("/", methods=["POST"])
 def webhook():
     data = request.get_json()
@@ -19,3 +29,10 @@ def webhook():
     })
 
     return "ok"
+
+@app.route("/")
+def home():
+    return "Bot Telegram đang chạy!"
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=10000)
